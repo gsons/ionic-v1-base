@@ -1,0 +1,14 @@
+<ion-header-bar class="bar-stable">
+  <h1 class="title" align-title="center">首 页</h1>
+   <button ng-click="$refresh()" class="button button-stable button-clear"><i class="icon ion-android-refresh"></i>
+  </button>
+</ion-header-bar>
+<ion-content class="has-tabs page-main">
+
+</ion-content>
+<ion-tabs class="tabs-stable">
+  <a ui-sref="app.main" class="tab-item ion_tabs_a active"><i class="icon ion-android-home" ></i><span class="tab-title">首页</span></a>
+  <a  ui-sref="app.drlist" class="tab-item ion_tabs_a">
+    <i class="icon ion-chatbox-working"></i><span class="tab-title">消息</span></a>
+  <a  ui-sref="app.person"  class="tab-item ion_tabs_a"><i class="icon ion-android-contact"></i><span class="tab-title">个人</span></a>
+</ion-tabs>

@@ -1,0 +1,135 @@
+<div class="bar bar-header has-tabs-top bar-stable item-input-inset"><button ng-click="$back()" class="button back-button buttons button-clear header-item"><i class="icon ion-android-arrow-back"></i> <span class="back-text"></span></button> <label class="item-input-wrapper"><i class="icon ion-ios-search placeholder-icon"></i> <input type="search" ng-change="searchMedical()" ng-focus="clearInput()" ng-blur="clearInput()" ng-click="clearInput()" placeholder="输入关键字搜索..." ng-model="medicalNameKey"> <i class="icon ion-close-circled positive" ng-cilck="clearInput()" ng-show="medicalNameKey"></i></label></div><div class="page-addChufang tabs-striped tabs-top tabs-background-stable tabs-color-positive"><div class="tabs"><a class="tab-item" ng-class="{'active':showItem==1}" href="javascript:;" ng-click="toggleShow(1)">中药饮片 </a><a class="tab-item" ng-class="{'active':showItem==2}" href="javascript:;" ng-click="toggleShow(2)">中成药</a> <a class="tab-item" ng-class="{'active':showItem==3}" href="javascript:;" ng-click="toggleShow(3)">理疗</a></div></div><div class="list page-addChufang medical-list" id="medical-list" ng-if="searchist.length>=0"><div class="item" ng-repeat="vo in searchist" ng-click="choseYc(vo)"><span class="positive">{{vo.chargeName}}&nbsp;&nbsp;</span> <span>{{vo.specification}}&nbsp;&nbsp;</span> <span class="assertive">￥{{vo.origPrice}}</span></div><div class="text-center item assertive" ng-if="searchist.length==0">:( 没有相关结果</div></div><ion-content class="has-tabs-top page-addChufang"><div class="item1" ng-if="showItem==1"><div class="card"><div class="item item item-button-right stable-bg">已选中药饮片 <button class="button button-positive button-clear text-right" ng-click="openToolBox()"><i class="icon ion-ios-medkit"></i>开方工具箱</button></div><div class="item item-text-wrap"><span class="pill" ng-repeat="vo in medicalList1 track by $index" on-hold="deleteItem($index)" on-double-tap="deleteItem($index)" on-tap="addOrUpdateCF(vo,$index)"><button class="button button-small button-positive button-clear">{{vo.chargeName}}({{vo.dosage}}g)</button></span><li class="item assertive" ng-show="medicalList1.length==0"><div class="padding text-center">暂无饮片, 长按饮片可删除饮片</div></li></div></div><div class="padding"><button class="button button-positive button-block">下一步,预览</button></div></div><div class="item2" ng-if="showItem==2"><div class="card"><div class="item item-divider stable-bg">已选中成药</div><div class="item item-text-wrap" ng-show="medicalList2.length>0"><ul class="list"><li class="item positive" ng-repeat="vo in medicalList2" on-hold="deleteZhongcheng($index)"><div class="row"><div class="col col-60">{{vo.chargeName}}({{vo.specification}})</div><div class="col col-40"><div class="button-bar bar-stable"><a class="button button-small" ng-click="addZhongchngeNum(vo,-1)">- </a><a class="button button-small">{{vo.dosage}}</a> <a class="button button-small" ng-click="addZhongchngeNum(vo,1)">+</a></div></div></div></li></ul></div><li class="item assertive" ng-show="medicalList2.length==0"><div class="padding text-center">暂无</div></li></div><div class="padding"><button class="button button-positive button-block">下一步,预览</button></div></div><div class="item3" ng-if="showItem==3"><div class="card"><div class="item item-divider stable-bg">已选诊疗</div><div class="item item-text-wrap" ng-show="medicalList3.length>0"><ul class="list"><li class="item positive" ng-repeat="vo in medicalList3 track by $index" on-hold="deleteZhenliao($index)">{{vo.chargeName}}</li></ul></div><li class="item assertive" ng-show="medicalList3.length==0"><div class="padding text-center">暂无</div></li></div><div class="padding"><button class="button button-positive button-block">下一步,预览</button></div></div></ion-content><script id="medicalTpl.html" type="text/ng-template" class="page-addChufang"><div class="page-addChufang medicalTpl">
+        <div class="text-center">
+            <div class="button-bar bar-stable">
+                <a class="button button-small" ng-click="addYCNum(-1)">
+              <i class="icon ion-minus-round"></i>
+            </a>
+                <a class="button button-small">{{$selectedyc.dosage}} g</a>
+                <a class="button button-small" ng-click="addYCNum(1)">
+              <i class="icon ion-plus-round"></i>
+            </a>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top: 20px">
+            <div class="button-bar bar-stable">
+                <a ng-click="chooseVal(5)" class="button button-small">5g</a>
+                <a ng-click="chooseVal(10)" class="button button-small">10g</a>
+                <a ng-click="chooseVal(15)" class="button button-small">15g</a>
+                <a ng-click="chooseVal(20)" class="button button-small">20g</a>
+            </div>
+        </div>
+    </div></script><script id="toolTpl.html" type="text/ng-template"><ion-modal-view class="page-addChufang m-modal">
+    <div class="bar bar-header has-tabs-top bar-stable item-input-inset">
+     <h1 class="title">开方工具箱</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">关闭</button>
+    </div>
+    <div class="page-addChufang tabs-striped tabs-top tabs-background-stable tabs-color-positive">
+        <div class="tabs m-tabs">
+            <a class="tab-item" ng-class="{'active':showIndex==1}" href="javascript:;" ng-click="toggleIndex(1)">上次就诊已开处方</a>
+            <a class="tab-item" ng-class="{'active':showIndex==2}" href="javascript:;" ng-click="toggleIndex(2)">个人常用饮片</a>
+            <a class="tab-item" ng-class="{'active':showIndex==3}" href="javascript:;" ng-click="toggleIndex(3)">致诚金方常用药方</a>
+            <a class="tab-item" ng-class="{'active':showIndex==4}" href="javascript:;" ng-click="toggleIndex(4)">个人常用药方 </a>
+        </div>
+    </div>
+    <ion-content class="padding has-tabs-top" delegate-handle="listScroll2">
+        <div ng-show="showIndex==1">
+           <div class="card list" ng-repeat="vo in preLists track by $index">
+            <div class="item item-button-right stable-bg" ng-click="toggle_1(vo,$index)">
+                 <span>{{vo.name}}</span>
+                 <button class="button button-positive button-clear button-small" ng-show="isUp1[$index]"> <i class="icon ion-chevron-down"></i></i></button>
+                 <button class="button button-positive button-clear button-small" ng-show="!isUp1[$index]"><i class="icon ion-chevron-right"></i></i></button>
+            </div>
+            <div class="item item-text-wrap" style=" padding-bottom:8px;padding-top:0" ng-show="isUp1[$index]">
+                  <span class="pill" ng-repeat="v in medicalDetails1[$index]"> 
+                    <button class="button button-small button-positive button-clear" ng-click="choseYc(v)">
+                         {{v.chargeName}}({{v.dosage|number:1}}g)
+                    </button>
+                  </span>
+            </div>
+             <div class="item stable-bg">
+                <span>&nbsp;</span>
+                <button class="button button-positive  button-small" ng-click="addCF_1_2(medicalDetails1[$index])">添加</button>
+             </div>
+          </div>
+          <div class="no-data no-data_line" ng-if="preLists==undefined||preLists.length==0">
+            <span class="no-data__tips">暂无数据</span>
+           </div>
+      </div>
+
+      <div ng-show="showIndex==2">
+        <div class="card list">
+            <div class="item  stable-bg">
+                 <span>个人常用药材</span>
+            </div>
+            <div class="item item-text-wrap" style=" padding-bottom:8px;padding-top:0">
+                  <span class="pill" ng-repeat="v in personalYF" ng-click="choseYc(v)"> 
+                    <button class="button button-small button-positive button-clear">
+                         {{v.chargeName}}({{v.dosage}}g)
+                    </button>
+                  </span>
+            </div>
+             <div class="item stable-bg">
+                <span>&nbsp;</span>
+                <button class="button button-positive  button-small" ng-click="addCF_1_2(personalYF)">添加</button>
+             </div>
+          </div>
+           <div class="no-data no-data_line" ng-if="personalYF.length==0">
+            <span class="no-data__tips">暂无数据</span>
+           </div>
+        </div>
+
+
+
+         <div ng-show="showIndex==3" class="showIndex3">
+          <div class="list list-inset" >
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="输入关键字索引..." ng-model="$parent.searchVal" ng-change="searchCF(searchVal)">
+              <i class="icon ion-close-circled positive"  
+             
+              ng-show="searchVal" style="margin-right:10px"></i>
+            </label>
+          </div>
+
+           <div class="card list" ng-repeat="vo in zcMedicals1 track by $index" ng-show="!vo.unshow">
+            <div class="item  stable-bg item-button-right">
+                 <span ng-click="toggle_3(vo,$index)">{{vo.name}}</span>
+                 <button class="button button-positive  button-small btn-add" ng-click="addCF_3_4(vo)">添加</button>
+                 <button class="button button-positive button-clear button-small btn-arrow" ng-show="isUp3[$index]"> <i class="icon ion-chevron-down"></i></i></button>
+                 <button class="button button-positive button-clear button-small btn-arrow" ng-show="!isUp3[$index]"><i class="icon ion-chevron-right"></i></i></button>
+            </div>
+            <div class="item item-text-wrap" style=" padding-bottom:8px;padding-top:0" ng-show="isUp3[$index]">
+                  <span class="pill" ng-repeat="v in medicalDetails3[$index]" ng-click="choseYc(v)"> 
+                    <button class="button button-small button-positive button-clear">
+                         {{v.chargeName}}({{v.dosage|number:1}}g)
+                    </button>
+                  </span>
+            </div>
+          </div>
+           <div class="no-data no-data_line" ng-if="zcMedicals1.length==0">
+            <span class="no-data__tips">暂无数据</span>
+           </div>
+       </div>
+
+        <div ng-show="showIndex==4" class="showIndex4">
+           <div class="card list" ng-repeat="vo in zcMedicals2 track by $index">
+            <div class="item  stable-bg item-button-right">
+                 <span ng-click="toggle_4(vo,$index)">{{vo.name}}</span>
+                 <button class="button button-positive  button-small btn-add" ng-click="addCF_3_4(vo)">添加</button>
+                 <button class="button button-positive button-clear button-small btn-arrow" ng-show="isUp4[$index]"> <i class="icon ion-chevron-down"></i></i></button>
+                 <button class="button button-positive button-clear button-small btn-arrow" ng-show="!isUp4[$index]"><i class="icon ion-chevron-right"></i></i></button>
+            </div>
+            <div class="item item-text-wrap" style=" padding-bottom:8px;padding-top:0" ng-show="isUp4[$index]">
+                  <span class="pill" ng-repeat="v in medicalDetails4[$index]" ng-click="choseYc(v)"> 
+                    <button class="button button-small button-positive button-clear">
+                         {{v.chargeName}}({{v.dosage|number:1}}g)
+                    </button>
+                  </span>
+            </div>
+          </div>
+           <div class="no-data no-data_line" ng-if="zcMedicals1.length==0">
+            <span class="no-data__tips">暂无数据</span>
+           </div>
+       </div>
+    </ion-content>
+</ion-modal-view></script>

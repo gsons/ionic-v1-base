@@ -1,0 +1,82 @@
+<ion-header-bar class="bar-stable">
+  <h1 class="title" align-title="center">首 页</h1>
+</ion-header-bar>
+<ion-content class="ionic-scroll has-tabs m-main">
+  <ion-slide-box active-slide="myActiveSlide" does-continue="true" auto-play="true" slide-interval="3000" show-pager="true">
+    <ion-slide style="background-color:transparent;" ng-repeat="vo in imgArr track by $index">
+      <div class="box-img">
+        <img ngsrc="{{vo}}" ion-img ngopt="-20,0.5625" />
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+  <div class="row">
+    <a href="javascript:;" class="col item" ui-sref="app.yuyueInfo">
+      <div class="col-item">
+        <svg-order></svg-order>
+        <div class="name-item-profile">
+          预约信息
+        </div>
+      </div>
+    </a>
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+        <svg-paiban></svg-paiban>
+        <div class="name-item-profile">
+          排班设置
+        </div>
+      </div>
+    </a>
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+        <svg-kaifang></svg-kaifang>
+        <div class="name-item-profile">
+          线上开方
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="row">
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+        <svg-record></svg-record>
+        <div class="name-item-profile">
+          就诊记录
+        </div>
+      </div>
+    </a>
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+        <svg-star></svg-star>
+        <div class="name-item-profile">
+          关注列表
+        </div>
+      </div>
+    </a>
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+        <svg-circle></svg-circle>
+        <div class="name-item-profile">
+          我的圈子
+        </div>
+      </div>
+    </a>
+  </div>
+
+   <div class="row">
+    <a href="javascript:;" class="col item">
+      <div class="col-item">
+         <div class="m-menu">
+             <img src="assets/img/yuyue-info.png">
+         </div>
+        <div class="name-item-profile">
+          就诊记录
+        </div>
+      </div>
+    </a>
+  </div>
+</ion-content>
+<ion-tabs class="tabs-stable">
+  <a class="tab-item ion_tabs_a active"><i class="icon ion-android-home" ></i><span class="tab-title">首页</span></a>
+  <a class="tab-item ion_tabs_a"><i class="icon ion-chatbox-working"></i><span class="tab-title">消息</span></a>
+  <a class="tab-item ion_tabs_a"><i class="icon ion-android-contact"></i><span class="tab-title">个人</span></a>
+</ion-tabs>

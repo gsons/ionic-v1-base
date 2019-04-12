@@ -1,0 +1,28 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden
+}
+
+.ion_tabs_a {
+    line-height: 14px;
+    opacity: 1;
+    font-size: 12px;
+}
+
+.ion_tabs_img {
+    margin-top: 3px;
+    height: 25px;
+}
+
+.ion_tabs_a i {
+    color: #999;
+}
+
+.ion_tabs_a.active i {
+    color: #ae7649
+}
+
+.ion_tabs_a.active span.tab-title {
+    color: #ae7649;
+}
